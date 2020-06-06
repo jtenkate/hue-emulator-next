@@ -9,7 +9,7 @@ public class PHScheduleTimerManager {
     /**
      * Stores list of ScheduleIdentifiers and their Respective Timer Objects
      */
-    private HashMap<String ,PHScheduleTimer> scheduleStore=new HashMap<String ,PHScheduleTimer>();
+    private final HashMap<String ,PHScheduleTimer> scheduleStore=new HashMap<String ,PHScheduleTimer>();
     
     
     /**

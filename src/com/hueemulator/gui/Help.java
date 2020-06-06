@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 
 
 public class Help extends JFrame{
-    private JEditorPane aboutPane;
+    private final JEditorPane aboutPane;
     
     public Help() {
 

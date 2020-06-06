@@ -19,7 +19,7 @@ public class TestGroupsAPI extends TestCase {
     HttpTester httpTester;
 
     String fileName = "/config-2bulbs.json";
-    String baseURL = "http://localhost:" + TestEmulator.PORT_NUMBER + "/api/";
+    final String baseURL = "http://localhost:" + TestEmulator.PORT_NUMBER + "/api/";
 
 
     @Before           

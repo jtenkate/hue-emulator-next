@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.hueemulator.utils.PHUtilitiesHelper;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -14,6 +15,7 @@ import com.hueemulator.model.PHBridgeConfiguration;
 import com.hueemulator.server.Server;
 import com.hueemulator.server.UPNPServer;
 
+import static com.hueemulator.utils.HueColor.rgb;
 
 
 // Taken from here: http://www.java2s.com/Code/Java/JDK-6/LightweightHTTPServer.htm
@@ -23,7 +25,7 @@ public class Emulator {
 
     private Server server;
     private UPNPServer upnpServer;
-    private Controller controller;
+    private final Controller controller;
 
     public Emulator(Controller controller, String fileName)  {
         this.controller = controller;
@@ -33,7 +35,7 @@ public class Emulator {
         controller.addTextToConsole("Loading configuration...", Color.WHITE, true);
 
         loadConfiguration(fileName);
-        controller.addTextToConsole("Starting Emulator...", Color.GREEN, true);         
+        controller.addTextToConsole("Starting Emulator " + Constants.EMULATOR_VERSION, Color.GREEN, true);
     }
 
     public void startServers() {

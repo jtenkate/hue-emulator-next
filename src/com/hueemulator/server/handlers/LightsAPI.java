@@ -24,15 +24,17 @@ import com.hueemulator.utils.PHUtilitiesHelper;
 import com.hueemulator.utils.PointF;
 import com.hueemulator.utils.Utils;
 
+import static com.hueemulator.utils.HueColor.rgb;
+
 public class LightsAPI {
 
-    DecimalFormat fourDP = new DecimalFormat("#.####");
+    final DecimalFormat fourDP = new DecimalFormat("#.####");
 
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
     //  1.1  GET ALL LIGHTS
     //  http://www.developers.meethue.com/documentation/lights-api#11_get_all_lights   1.1. Get all lights
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
-    public void getAllLights_1_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {    
+    public void getAllLights_1_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         Map <String, PHLight> lightsMap = bridgeConfiguration.getLights();
 
   //      mapper.writeValue(responseBody, lightsMap);   // Write to the response.
@@ -52,7 +54,7 @@ public class LightsAPI {
     //  1.4  GET LIGHT ATTRIBUTES AND STATE
     //  http://www.developers.meethue.com/documentation/lights-api#14_get_light_attributes_and_state   1.4. Get light attributes and state
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    public void getLightAttributes_1_4(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String lightIdentifier) throws JsonParseException, IOException {
+    public void getLightAttributes_1_4(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String lightIdentifier) throws IOException {
 
         if (bridgeConfiguration.getLights() == null || bridgeConfiguration.getLights().get(lightIdentifier) == null) {
             sendErrorResponse(lightIdentifier, "3", responseBody);
@@ -108,7 +110,7 @@ public class LightsAPI {
     //  1.5  SET LIGHT ATTRIBUTES
     //  http://www.developers.meethue.com/documentation/lights-api#15_set_light_attributes_rename   1.5. Set light attributes (rename)
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void setLightAttributes_1_5(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String light) throws JsonParseException, IOException {    
+    public void setLightAttributes_1_5(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String light) throws IOException {
         PHLight lightObject = bridgeConfiguration.getLights().get(light);
 
         String responseBase = "/lights/" + light + "/";
@@ -166,7 +168,7 @@ public class LightsAPI {
     //  1.6  SET LIGHT STATE
     // http://www.developers.meethue.com/documentation/lights-api#16_set_light_state   1.6. Set light state
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void setLightState_1_6(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String lightIdentifier) throws JsonParseException, IOException {
+    public void setLightState_1_6(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String lightIdentifier) throws IOException {
 
         String resourceUrl = "/lights/" + lightIdentifier + "/state/";
 
@@ -219,6 +221,8 @@ public class LightsAPI {
                 }
                 else if (name.equals("hue") && !lightType.equals(Constants.LIGHT_TYPE_LUX_BULB) ) {
                     int val = jObject.optInt(name);
+//                    float[] xy = PHUtilitiesHelper.calculateXY(rgb(0,128,0),"LCT001");
+//                    System.out.println(xy);
                     if (!isOn) {
                         isSuccess=false; errorType=201;  errorDescription = "parameter, hue, is not modifiable. Device is set to off.";
                     }
@@ -279,12 +283,14 @@ public class LightsAPI {
                     else {
                         JSONArray xyArray = jObject.optJSONArray("xy");
                         successLine.putOpt(resourceUrl, xyArray);
-
                         float point1 = Float.valueOf(xyArray.get(0).toString());
                         float point2 = Float.valueOf(xyArray.get(1).toString());
                         PointF xy = new PointF(point1,point2);
                         xy = PHUtilitiesHelper.fixIfOutOfRange(xy, Constants.MODEL_ID_COLOR_BULB);  // If the sent x/y values are out of range, the find the closest point.
                         float[] xyFloatArray = {xy.x, xy.y};
+//                        float[] xyFloatArray2;
+//                        int colGreen=23536;
+//                        xyFloatArray2 = PHUtilitiesHelper.calculateXY(colGreen,"LCT001");
                         int colour = PHUtilitiesHelper.colorFromXY(xyFloatArray, Constants.MODEL_ID_COLOR_BULB);
 
                         Color col = new Color(colour);

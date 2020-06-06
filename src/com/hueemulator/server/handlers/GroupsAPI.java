@@ -25,7 +25,7 @@ public class GroupsAPI {
     //  http://www.developers.meethue.com/documentation/groups-api#21_get_all_groups   2.1. Get all groups
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void getAllGroups_2_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void getAllGroups_2_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         Map <String, PHGroupsEntry> groupsMap = bridgeConfiguration.getGroups();
         
         Iterator it = groupsMap.entrySet().iterator();
@@ -56,7 +56,7 @@ public class GroupsAPI {
     //  2.2  CREATE GROUP
     //  http://www.developers.meethue.com/documentation/groups-api#22_create_group   3.2. Create Group
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void createGroup_2_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void createGroup_2_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
 
           PHGroupsEntry groupObject = new PHGroupsEntry();
           
@@ -136,7 +136,7 @@ public class GroupsAPI {
     //  2.3  GET GROUP ATTRIBUTES
     //  http://www.developers.meethue.com/documentation/groups-api#23_get_group_attributes   2.3. Get group attributes
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    public void getGroupAttributes_2_3(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws JsonParseException, IOException {
+    public void getGroupAttributes_2_3(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws IOException {
 
         if (bridgeConfiguration.getGroups() == null || bridgeConfiguration.getGroups().get(groupIdentifier) == null) {
             sendErrorResponse(groupIdentifier, "3", responseBody);
@@ -152,7 +152,7 @@ public class GroupsAPI {
     //  2.4  SET GROUP  ATTRIBUTES
     //  http://www.developers.meethue.com/documentation/groups-api#24_set_group_attributes   2.4. Set group attributes
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void setGroupAttributes_2_4(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws JsonParseException, IOException {
+    public void setGroupAttributes_2_4(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws IOException {
 
           if (bridgeConfiguration.getGroups() == null || bridgeConfiguration.getGroups().get(groupIdentifier) == null) {
               sendErrorResponse(groupIdentifier, "3", responseBody);
@@ -233,7 +233,7 @@ public class GroupsAPI {
     //  http://www.developers.meethue.com/documentation/groups-api#25_set_group_state   2.5. Set Group State
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void setGroupState_2_5(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier, LightsAPI lightsAPI) throws JsonParseException, IOException {
+    public void setGroupState_2_5(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier, LightsAPI lightsAPI) throws IOException {
 
         String resourceUrl = "/groups/" + groupIdentifier + "/action/";
         boolean allLightsGroup = false;
@@ -352,7 +352,7 @@ public class GroupsAPI {
     //  2.6  DELETE GROUP
     //  http://www.developers.meethue.com/documentation/groups-api#26_delete_group   3.5. Delete group
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    public void deleteGroup_2_6(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws JsonParseException, IOException {
+    public void deleteGroup_2_6(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String groupIdentifier) throws IOException {
 
         if (bridgeConfiguration.getGroups() == null || bridgeConfiguration.getGroups().get(groupIdentifier) == null) {
             sendErrorResponse(groupIdentifier, "3", responseBody);

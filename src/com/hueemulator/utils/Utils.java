@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Utils {
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private static final String USER_AGENT = "Mozilla/5.0";
     
  public static boolean isInRange(int value, int start, int end) {
@@ -41,7 +41,7 @@ public class Utils {
   * This method is used by the Schedules API.  Its purpose is twofold.  Firstly to check the date is in the correct format,
   * and secondly to check the date is after the current date.
   * 
-  * @param date
+  * @param dateString
   * @return
   */
  public static boolean isDateValid(String dateString) {                                                     

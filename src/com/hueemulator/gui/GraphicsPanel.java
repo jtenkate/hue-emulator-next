@@ -36,18 +36,18 @@ public class GraphicsPanel extends JPanel implements MouseListener {
     private BufferedImage bridgeImage;
     
     // Used for slightly dimming bulbs which are off.
-    private AlphaComposite dimAlphaComposite;
-    private AlphaComposite helpAlphaComposite;
-    private AlphaComposite normalAlphaComposite;
+    private final AlphaComposite dimAlphaComposite;
+    private final AlphaComposite helpAlphaComposite;
+    private final AlphaComposite normalAlphaComposite;
 
     private static final int VIEW_TYPE_LARGE=0;
     private static final int VIEW_TYPE_SMALL=1;   // New window with small bulbs
     private static final int VIEW_TYPE_PANEL=2;   // Panel on main window.
     private static final int NO_BULBS_PER_ROW=5;
-    private static final int NO_BULBS_PER_ROW_SMALL=12;
-    private int viewType;
-    private int lightXOffset;
-    private int lightsGap;
+    private static final int NO_BULBS_PER_ROW_SMALL=28;
+    private final int viewType;
+    private final int lightXOffset;
+    private final int lightsGap;
     private int yPosition;
     private boolean drawBulbInfo=false;
     private boolean drawBridgeInfo=false;

@@ -47,7 +47,7 @@ public class Controller {
 
     private View view;
     public String consoleText="";
-    private DateFormat inputFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+    private final DateFormat inputFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
     private String ipAddress;
     
     private MutableAttributeSet sas;

@@ -12,8 +12,8 @@ import com.sun.net.httpserver.HttpHandler;
 
 class MyRootHandler implements HttpHandler {
 
-    private Controller controller;
-    private ConfigurationAPI configurationAPIhandler;
+    private final Controller controller;
+    private final ConfigurationAPI configurationAPIhandler;
 
     public MyRootHandler(Controller controller) {
         this.controller          = controller;

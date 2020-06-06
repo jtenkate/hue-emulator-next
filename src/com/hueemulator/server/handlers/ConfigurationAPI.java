@@ -23,7 +23,7 @@ public class ConfigurationAPI {
 
     // Used for Pushlinking.  Stores all usernames (that are being created).
     // For pushlinking you have to click anywhere on the bridge panel
-    public List<String> users = new ArrayList<String>();    
+    public final List<String> users = new ArrayList<String>();
 
     public void getBridgeDescription(OutputStream responseBody, String ipAddressAndPort) {
         String descriptionFile = "";
@@ -48,7 +48,7 @@ public class ConfigurationAPI {
     //  http://www.developers.meethue.com/documentation/configuration-api#71_create_user   7.1  Create User
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
     
-    public void createUser_7_1(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller)  throws JsonParseException, IOException {
+    public void createUser_7_1(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller)  throws IOException {
 
             PHWhitelistEntry  whitelistEntry = new PHWhitelistEntry();
             
@@ -136,7 +136,7 @@ public class ConfigurationAPI {
     //  http://www.developers.meethue.com/documentation/configuration-api#72_get_configuration   7.2 Get Configuration
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void getConfig_7_2(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void getConfig_7_2(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         PHConfig config = bridgeConfiguration.getConfig();
         mapper.writeValue(responseBody, config);   // Write to the response.
         controller.addTextToConsole(mapper.writeValueAsString(config), Color.WHITE, controller.showResponseJson());
@@ -147,7 +147,7 @@ public class ConfigurationAPI {
     //  http://www.developers.meethue.com/documentation/configuration-api#74_delete_user_from_whitelist   7.4 Delete user from whitelist
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void deleteUser_7_4(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String removingUsername) throws JsonParseException, IOException {
+    public void deleteUser_7_4(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String removingUsername) throws IOException {
     	bridgeConfiguration.getConfig().getWhitelist().remove(removingUsername);
         JSONObject responseObj = new JSONObject();
         responseObj.put("success", "/config/whitelist/" + removingUsername + " deleted.");
@@ -162,7 +162,7 @@ public class ConfigurationAPI {
     //  http://www.developers.meethue.com/documentation/configuration-api#75_get_full_state_datastore   7.5 Get Full State (DataStore
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
     
-    public void getFullState_7_5(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void getFullState_7_5(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         mapper.writeValue(responseBody, bridgeConfiguration);   // Write to the response.
         if (controller.getModel().isShowFullConfig()) {   // The full config can be large, and displayed every 10 seconds if an app has it enabled, so we have the option to hide this.
            controller.addTextToConsole(mapper.writeValueAsString(bridgeConfiguration), Color.WHITE, controller.showResponseJson());

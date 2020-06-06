@@ -50,7 +50,7 @@ import org.xml.sax.InputSource;
  */
 public class TestUtils {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
   /**
    * Loads the contents of the test fixture specified at the given path.
    *

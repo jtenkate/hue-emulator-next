@@ -20,15 +20,27 @@ import com.hueemulator.emulator.Controller;
 public class HueMenuBar extends JMenuBar {
     private JTextField port;
     private JMenuBar menuBar;
-    private JMenu fileMenu, viewsMenu, debugMenu, helpMenu;
+    private JMenu fileMenu;
+    private final JMenu viewsMenu;
+    private final JMenu debugMenu;
+    private JMenu helpMenu;
     private JMenuItem menuItem;
 
     private JButton startButton;
     private JButton stopButton;
-   private JMenuItem clearConsoleMenuItem, helpMenuItem, aboutMenuItem,loadConfigMenuItem, saveConfigMenuItem, newColorBulbMenuItem, newLuxBulbMenuItem;
+   private JMenuItem clearConsoleMenuItem;
+    private JMenuItem helpMenuItem;
+    private JMenuItem aboutMenuItem;
+    private JMenuItem loadConfigMenuItem;
+    private JMenuItem saveConfigMenuItem;
+    private final JMenuItem newColorBulbMenuItem;
+    private final JMenuItem newLuxBulbMenuItem;
 
     // Debug Menus Items
-    private JMenuItem showResponseJsonMenuItem, showRequestJsonMenuItem, showFullConfigMenuItem, showTimeInJson;
+    private final JMenuItem showResponseJsonMenuItem;
+    private final JMenuItem showRequestJsonMenuItem;
+    private final JMenuItem showFullConfigMenuItem;
+    private final JMenuItem showTimeInJson;
 
     private JCheckBoxMenuItem viewGraphicsMenuItems;
 

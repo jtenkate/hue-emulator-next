@@ -16,6 +16,18 @@ public class PHScenesEntry
  @JsonProperty("active")
  private boolean active;
 
+ @JsonProperty("recycle")
+ private boolean recycle;
+
+ @JsonProperty("type")
+ private String type;
+
+ @JsonProperty("action")
+ private PHLightState   lightState;
+
+ @JsonProperty("lightsIds")
+ private List<String>    lightIdentifiers;
+
  public String getName()
  {
   return name;
@@ -44,4 +56,21 @@ public class PHScenesEntry
      this.active = active;
  }
 
+ public PHLightState getLightState()
+ {
+  return lightState;
+ }
+
+ public void setLightState(PHLightState lightState)
+ {
+  this.lightState = lightState;
+ }
+
+ public List<String> getLightIdentifiers() {
+  return lightIdentifiers;
+ }
+
+ public void setLightIdentifiers(List<String> lightIdentifiers) {
+  this.lightIdentifiers = lightIdentifiers;
+ }
 }

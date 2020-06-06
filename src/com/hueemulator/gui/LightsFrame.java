@@ -14,7 +14,7 @@ public class LightsFrame extends JFrame {
     // Used for slightly dimming bulbs which are off.
     private Model model;
     private Controller controller;
-    private GraphicsPanel graphicsPanel;
+    private final GraphicsPanel graphicsPanel;
     
    public LightsFrame(Controller controller, String size) {
       graphicsPanel = new GraphicsPanel(size);

@@ -15,7 +15,7 @@ public class UPNPServer extends Thread {
     public DatagramSocket socket;
     public boolean runUPNPServer=true;
     
-    public Controller controller;
+    public final Controller controller;
     
     // First implementation of a UPNP server.  Am not sure if this is the correct implementation but it seems to work.  The emulator is found by SDK bridge searches.
     // It will be improved if the implementation is faulty, as it could well be as this (java network stuff) not my strong point.

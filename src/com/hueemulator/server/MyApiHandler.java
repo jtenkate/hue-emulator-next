@@ -24,13 +24,13 @@ import com.sun.net.httpserver.HttpHandler;
 
 class MyApiHandler implements HttpHandler {
 
-    private PHBridgeConfiguration bridgeConfiguration;
-    private Controller controller;
-    private LightsAPI lightsAPIhandler;
-    private ConfigurationAPI configurationAPIhandler;
-    private GroupsAPI groupsAPIhandler;
-    private SchedulesAPI schedulesAPIhandler;
-    private ScenesAPI    scenesAPIhandler;
+    private final PHBridgeConfiguration bridgeConfiguration;
+    private final Controller controller;
+    private final LightsAPI lightsAPIhandler;
+    private final ConfigurationAPI configurationAPIhandler;
+    private final GroupsAPI groupsAPIhandler;
+    private final SchedulesAPI schedulesAPIhandler;
+    private final ScenesAPI    scenesAPIhandler;
 
     public MyApiHandler(PHBridgeConfiguration bridgeConfiguration, Controller controller) {
         this.bridgeConfiguration = bridgeConfiguration;
@@ -124,7 +124,7 @@ class MyApiHandler implements HttpHandler {
         }
     }
 
-    public void handlePut(ObjectMapper mapper, String url, OutputStream responseBody, String jSONString, String[] urlElements) throws JsonParseException, IOException  {
+    public void handlePut(ObjectMapper mapper, String url, OutputStream responseBody, String jSONString, String[] urlElements) throws IOException  {
         int noURLEelements=urlElements.length;
         String lastURLElement = urlElements[noURLEelements-1];
 
@@ -156,7 +156,7 @@ class MyApiHandler implements HttpHandler {
         } 
     }
 
-    public void handlePost(ObjectMapper mapper, String url, OutputStream responseBody, String jSONString, String[] urlElements) throws JsonParseException, IOException  {
+    public void handlePost(ObjectMapper mapper, String url, OutputStream responseBody, String jSONString, String[] urlElements) throws IOException  {
         int noURLEelements=urlElements.length;
         String lastURLElement = urlElements[noURLEelements-1];
 
@@ -166,13 +166,16 @@ class MyApiHandler implements HttpHandler {
         else if (lastURLElement.equals("groups")) {
             groupsAPIhandler.createGroup_2_2(mapper, jSONString, bridgeConfiguration, responseBody, controller);
         }
+        else if (lastURLElement.equals("scenes")) {
+            scenesAPIhandler.createScene_4_2b(mapper, jSONString, bridgeConfiguration, responseBody, controller);
+        }
         else if (lastURLElement.equals("api")) {
             configurationAPIhandler.createUser_7_1(mapper, jSONString, bridgeConfiguration, responseBody, controller);
         }
 
     }
 
-    public void handleGet(ObjectMapper mapper, String url, OutputStream responseBody, String[] urlElements) throws JsonGenerationException, IOException {
+    public void handleGet(ObjectMapper mapper, String url, OutputStream responseBody, String[] urlElements) throws IOException {
 
         int noURLEelements=urlElements.length;
         String lastURLElement = urlElements[noURLEelements-1];
@@ -210,7 +213,7 @@ class MyApiHandler implements HttpHandler {
         }
     }
 
-    public void handleDelete(ObjectMapper mapper, OutputStream responseBody, String[] urlElements) throws JsonParseException, IOException  {
+    public void handleDelete(ObjectMapper mapper, OutputStream responseBody, String[] urlElements) throws IOException  {
         int noURLEelements=urlElements.length;
         String lastURLElement = urlElements[noURLEelements-1];
 

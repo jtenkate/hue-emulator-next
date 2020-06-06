@@ -1,5 +1,63 @@
 {
     "lights": {
+		"1": {
+			"state": {
+				"on": true,
+				"bri": 254,
+				"hue": 4444,
+				"sat": 254,
+				"xy": [0.214,0.709],
+				"ct": 0,
+				"alert": "none",
+				"effect": "none",
+				"colormode": "xy",
+				"reachable": true
+			},
+			"type": "Extended color light",
+			"name": "4.1 Hue color links, E27 806lm",
+			"modelid": "LCT001",
+			"swversion": "65003148",
+			"uniqueid":  "00:17:88:01:00:d4:12:08-0a",
+			"pointsymbol": {
+				"1": "none",
+				"2": "none",
+				"3": "none",
+				"4": "none",
+				"5": "none",
+				"6": "none",
+				"7": "none",
+				"8": "none"
+			}
+		},
+		"2": {
+			"state": {
+				"on": true,
+				"bri": 254,
+				"hue": 23536,
+				"sat": 144,
+				"xy": [0.3460, 0.3568],
+				"ct": 201,
+				"alert": "none",
+				"effect": "none",
+				"colormode": "xy",
+				"reachable": true
+			},
+			"type": "Extended color light",
+			"name": "4.2 Hue color rechts, E27 806lm",
+			"modelid": "LCT001",
+			"swversion": "65003148",
+			"uniqueid":  "00:17:88:01:00:d4:12:08-0b",
+			"pointsymbol": {
+				"1": "none",
+				"2": "none",
+				"3": "none",
+				"4": "none",
+				"5": "none",
+				"6": "none",
+				"7": "none",
+				"8": "none"
+			}
+		},
 		"12": {
 			"modelid": "TRADFRI bulb E14 WS 470lm",
 			"name": "1.1 Armatuur 1, E14 470lm",
@@ -229,240 +287,8 @@
 				"8": "none"
 			},
 			"uniqueid": "02:0c:5c:2a:ec:ba:97:25-05"
-		},
-		"1": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.1 Hue color links, E27 806lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-0a",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"2": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 23536,
-				"sat": 144,
-				"xy": [0.3460, 0.3568],
-				"ct": 201,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.2 Hue color rechts, E27 806lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-0b",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"3": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.3 Spot exitdeur, E14 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4c",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"14": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.5 Raamkant, E27 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4d",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"15": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.6 Raamkant, E27 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4d",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"28": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.7 Kroonluchter, E14 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4d",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"29": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.8 Kroonluchter, E14 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4d",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
-		},
-		"30": {
-			"state": {
-				"on": true,
-				"bri": 254,
-				"hue": 4444,
-				"sat": 254,
-				"xy": [0.214,0.709],
-				"ct": 0,
-				"alert": "none",
-				"effect": "none",
-				"colormode": "xy",
-				"reachable": true
-			},
-			"type": "Extended color light",
-			"name": "4.9 Kroonluchter, E14 600lm",
-			"modelid": "LCT001",
-			"swversion": "65003148",
-			"uniqueid":  "00:17:88:01:00:d4:12:08-4d",
-			"pointsymbol": {
-				"1": "none",
-				"2": "none",
-				"3": "none",
-				"4": "none",
-				"5": "none",
-				"6": "none",
-				"7": "none",
-				"8": "none"
-			}
 		}
-	},
+    },
     "groups": {
         "1": {
             "action": {

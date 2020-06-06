@@ -29,7 +29,7 @@ public class SchedulesAPI {
     //  3.1  GET ALL SCHEDULESCREATE SCHEDULE
     //  http://developers.meethue.com/3_schedulesapi.html   3.1. Get All Schedules
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void getAllSchedules_3_1(PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void getAllSchedules_3_1(PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         Map <String, PHSchedulesEntry> lightsMap = bridgeConfiguration.getSchedules();
 
         Iterator it = lightsMap.entrySet().iterator();
@@ -74,7 +74,7 @@ public class SchedulesAPI {
     //  3.2  CREATE SCHEDULE
     //  http://developers.meethue.com/3_schedulesapi.html   3.2. Create Schedule
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void createSchedule_3_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void createSchedule_3_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         PHSchedulesEntry scheduleObject = new PHSchedulesEntry();
 
         String responseBase = "/schedules/";
@@ -195,7 +195,7 @@ public class SchedulesAPI {
     //  3.3  GET SCHEDULE ATTRIBUTES
     //  http://developers.meethue.com/3_schedulesapi.html   3.3. Get schedule attributes
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    public void getScheduleAttributes_3_3(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws JsonParseException, IOException {
+    public void getScheduleAttributes_3_3(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws IOException {
 
         if (bridgeConfiguration.getSchedules() == null || bridgeConfiguration.getSchedules().get(scheduleIdentifier) == null) {
             sendErrorResponse(scheduleIdentifier, "3", responseBody);
@@ -211,7 +211,7 @@ public class SchedulesAPI {
     //  3.4  SET SCHEDULE  ATTRIBUTES
     //  http://developers.meethue.com/3_schedulesapi.html   3.4. Set schedule attributes
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= 
-    public void setScheduleAttributes_3_4(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws JsonParseException, IOException {          
+    public void setScheduleAttributes_3_4(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws IOException {
 
         if (bridgeConfiguration.getSchedules() == null || bridgeConfiguration.getSchedules().get(scheduleIdentifier) == null) {
             sendErrorResponse(scheduleIdentifier, "3", responseBody);
@@ -328,7 +328,7 @@ public class SchedulesAPI {
     //  3.5  DELETE SCHEDULE
     //  http://developers.meethue.com/3_schedulesapi.html   3.5. Delete schedule
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    public void deleteSchedule_3_5(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws JsonParseException, IOException {
+    public void deleteSchedule_3_5(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String scheduleIdentifier) throws IOException {
 
         if (bridgeConfiguration.getSchedules() == null || bridgeConfiguration.getSchedules().get(scheduleIdentifier) == null) {
             sendErrorResponse(scheduleIdentifier, "3", responseBody);
@@ -370,10 +370,10 @@ public class SchedulesAPI {
      * This sends the HTTP call back to the Emulator Server and executes it!!
      */
     class ScheduleTask extends TimerTask {
-        private String scheduleIdentifier;
-        private JSONObject commandObject;   // The JSON to execute when the Schedule occurs.
+        private final String scheduleIdentifier;
+        private final JSONObject commandObject;   // The JSON to execute when the Schedule occurs.
         private String ipAddress;
-        private PHBridgeConfiguration bridgeConfiguration;
+        private final PHBridgeConfiguration bridgeConfiguration;
 
         public ScheduleTask(String scheduleIdentifier, JSONObject commandObject, String ipAddress, PHBridgeConfiguration bridgeConfiguration) {
             this.scheduleIdentifier = scheduleIdentifier;

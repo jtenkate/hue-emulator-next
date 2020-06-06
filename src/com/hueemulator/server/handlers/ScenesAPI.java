@@ -9,28 +9,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.hueemulator.model.*;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.hueemulator.emulator.Controller;
-import com.hueemulator.model.PHBridgeConfiguration;
-import com.hueemulator.model.PHLight;
-import com.hueemulator.model.PHLightState;
-import com.hueemulator.model.PHScenesEntry;
 
 public class ScenesAPI {
     
     // In the bridge, the light states for each scene are stored in the bulbs (not in the Bridge JSON/COnfig). Hence this map is for storing the LightStates for each scene.
-    public static Map<String, List<PHLight>> emulatorScenes = new HashMap<String, List<PHLight>>();      
+    public static final Map<String, List<PHLight>> emulatorScenes = new HashMap<String, List<PHLight>>();
     
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
     //  4.1  GET ALL SCENES
     //  http://www.developers.meethue.com/documentation/scenes-api#41_get_all_scenes   4.1. Get all scenes
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void getAllScenes_4_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws JsonParseException, IOException {
+    public void getAllScenes_4_1(ObjectMapper mapper, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
         Map <String, PHScenesEntry> scenesMap = bridgeConfiguration.getScenes();
         
         Iterator it = scenesMap.entrySet().iterator();
@@ -59,11 +56,11 @@ public class ScenesAPI {
     } 
     
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
-    //  4.2  CREATE SCENES SCENE
+    //  4.2  CREATE SCENES SCENE - GROUP SCENE
     //  http://www.developers.meethue.com/documentation/scenes-api#42_create_scene   4.2. Create Scene
     // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
 
-    public void createScene_4_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String sceneIdentifier) throws JsonParseException, IOException {
+    public void createScene_4_2(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller, String sceneIdentifier) throws IOException {
 
         PHScenesEntry sceneObject = new PHScenesEntry();
 
@@ -157,6 +154,98 @@ public class ScenesAPI {
       }
       return phLightList;
   }
-    
-    
+
+    // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+    //  4.2B  CREATE SCENES SCENE - LIGHT SCENE
+    //  http://www.developers.meethue.com/documentation/scenes-api#42_create_scene   4.2B. Create LightScene
+    // *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=    
+    public void createScene_4_2b(ObjectMapper mapper, String jSONString, PHBridgeConfiguration bridgeConfiguration, OutputStream responseBody, Controller controller) throws IOException {
+
+        PHScenesEntry SceneObject = new PHScenesEntry();
+
+        String responseBase = "/scenes/";
+        String resourceUrl="";
+        String errorDescription="";
+
+        String name="Scene";
+        JSONArray responseArray = new JSONArray();
+        String nextSceneNumber = Integer.toString(bridgeConfiguration.getScenes().size() + 1);
+
+        JSONObject jObject = new JSONObject(jSONString);
+        if (jObject != null) {
+            JSONArray names = jObject.names();
+
+            boolean isSuccess=true;  // Success is returned for a valid fieldname, if a field name is invalid then an "error" is returned.
+            JSONObject successObject = new JSONObject();
+            List<PHLight> lightsList = new ArrayList<PHLight>(); // A list of all light objects that are part of the scene.
+            List<PHLightState> lightStateList = new ArrayList<PHLightState>(); // A list of all lightstate objects that are part of the scene.
+            responseArray.put(successObject);
+
+            for (int i=0; i<names.length(); i++) {
+                name = names.getString(i);
+
+                resourceUrl = responseBase + name;
+
+                if (name.equals("name")) {
+                    String SceneName = jObject.optString(name);
+
+                    if (SceneName == null || SceneName.length() > 32) {
+                        errorDescription = "invalid value, " + SceneName + ", for parameter, name";
+                        isSuccess=false;
+                    }
+                    else {
+                        SceneObject.setName(SceneName);
+                    }
+                }
+                else if (name.equals("lights")) {
+                    JSONArray lightsArray = jObject.optJSONArray("lights");
+                    List<String> lightIdentifiers = new ArrayList();
+
+                    for (int a=0; a< lightsArray.length(); a++) {
+                        lightIdentifiers.add(lightsArray.get(a).toString());
+                    }
+                    lightsList.addAll(cloneLightObjectsFromLightIds(bridgeConfiguration, lightIdentifiers));
+                    SceneObject.setLightIdentifiers(lightIdentifiers);
+                }
+/*                else if (name.equals("lightstates")) {
+                    JSONArray lightsArray = jObject.optJSONArray("lightstates");
+                    List<String> lightStates = new ArrayList();
+
+                    for (int a=0; a< lightsArray.length(); a++) {
+                        lightStates.add(lightsArray.get(a).toString());
+                    }
+                    lightStateList.addAll(cloneLightObjectsFromLightIds(bridgeConfiguration, lightStates));
+                    SceneObject.setLightIdentifiers(lightStates);
+                }
+*/
+                if (!isSuccess)  {   // Handle errors,  i.e.  Non Supported fields
+                    JSONObject errorLine = new JSONObject();
+                    errorLine.putOpt("type", 7);
+                    errorLine.putOpt("address", resourceUrl);
+                    errorLine.putOpt("description", errorDescription);
+                    successObject.putOpt("error", errorLine);
+                    break;
+                }
+
+            }  // For Names
+
+            if (isSuccess) {
+                JSONObject idObject = new JSONObject();
+                idObject.put("id", responseBase + nextSceneNumber);
+
+                successObject.putOpt("success",  idObject);
+                emulatorScenes.put(nextSceneNumber,lightsList);
+
+                bridgeConfiguration.getScenes().put(nextSceneNumber, SceneObject);
+            }
+
+        }  // JObject !=null
+
+        responseBody.write(responseArray.toString().getBytes());
+        responseBody.close();
+
+        controller.addTextToConsole(responseArray.toString(), Color.WHITE, controller.showResponseJson());
+    }
+
+
 }

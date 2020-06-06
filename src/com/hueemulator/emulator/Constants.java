@@ -2,7 +2,7 @@ package com.hueemulator.emulator;
 
 public class Constants {
     
-   public static String EMULATOR_VERSION = "v0.6";  
+   public static final String EMULATOR_VERSION = "v0.9";
     
    public static final String MODEL_ID_COLOR_BULB = "LCT001";
    public static final String MODEL_ID_LUX_BULB   = "LWB004";
